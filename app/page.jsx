@@ -14,10 +14,22 @@ export default function Home() {
   useEffect(() => {
     fetchNotes();
   }, []);
+  //delete anote
+  const deleteNote = async (id) => {
+    const response = await fetch(`/api/notes/${id}`, {
+      method: 'DELETE'
+    })
+    if (response.ok) {
+      fetchNotes()
+    }
+  }
 
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title.trim() || !content.trim()) {
+      alert('Please enter both title and content');
+      return;
+    }
     const response = await fetch('/api/notes', {
       method: 'POST',
       headers: {
@@ -26,16 +38,12 @@ export default function Home() {
       body: JSON.stringify({ title, content })
     });
     if (response.ok) {
-      
+
       setTitle('');
       setContent('');
-      fetchNotes(); 
+      fetchNotes();
     }
-    const newNote = {
-      id: Date.now(),
-      title: title,
-      content: content
-    }
+
 
   };
   return (
@@ -67,7 +75,12 @@ export default function Home() {
             <div key={note._id} className="border p-4 rounded shadow">
               <h2 className="text-xl font-semibold">{note.title}</h2>
               <p className="text-gray-600">{note.content}</p>
-
+              <button
+                onClick={() => deleteNote(note._id)}
+                className="mt-2 bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition"
+              >
+                Delete
+              </button>
             </div>
           ))
         }

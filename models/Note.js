@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 const noteSchema= new mongoose.Schema({
   title:{
     type:String,
-    require:true,
+    required:true,
+    trim: true,
   },
   content: {
   type:String,
-  require:true,
+  required:true,
+  trim: true,
   },
   createdAt:{
     type:Date,

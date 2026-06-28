@@ -1,3 +1,4 @@
-import connectDB from "./lib/mongoose.js";
+import 'dotenv/config';
 
-connectDB()
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+console.log('PORT:', process.env.PORT);

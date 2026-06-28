@@ -89,7 +89,7 @@ export default function Home() {
     setEditingId(null);
     setEditingTitle('');
     setEditContent('');
-    // Refresh notes
+  
     fetchNotes();
   }
 };
@@ -145,21 +145,23 @@ export default function Home() {
       <div className="space-y-4">
         {
           notes.map((note) => (
-            <div key={note._id} className="border p-4 rounded shadow">
+            <div key={note._id} className="border p-4 rounded shadow flex flex-col">
               <h2 className="text-xl font-semibold">{note.title}</h2>
               <p className="text-gray-600">{note.content}</p>
-              <button
-                onClick={() => startEdit(note)}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm transition"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => deleteNote(note._id)}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm transition flex items-center"
-              >
-                🗑️ Delete
-              </button>
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={() => startEdit(note)}
+                  className=" hover:bg-blue-600 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm transition flex items-center"
+                >
+                  ✏️ Edit
+                </button>
+                <button
+                  onClick={() => deleteNote(note._id)}
+                  className="hover:bg-blue-600 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm transition flex items-center"
+                >
+                  🗑️ Delete
+                </button>
+              </div>
             </div>
           ))
         }
